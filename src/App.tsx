@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './styles/app.scss';
 
-const App = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React, { useState } from 'react';
+import { FiMoon, FiSun } from 'react-icons/fi';
+import Switch from 'react-switch';
 
-export default App;
+import { Header } from './features/header';
+import { TaskList } from './features/taskList';
+
+export const App: React.FunctionComponent = () => {
+    const [checked, setChecked] = useState(true);
+
+    const handleChange = (isChecked: boolean) => {
+        setChecked(isChecked);
+    };
+
+    return (
+        <>
+            <Header>
+                <h1>My Tasks</h1>
+                <div>
+                    <Switch
+                        onChange={handleChange}
+                        checked={checked}
+                        offColor={'#333'}
+                        onColor={'#2b7a78'}
+                        className={'switch-button'}
+                        uncheckedIcon={<FiMoon size='19px' color='#FFF' />}
+                        checkedIcon={<FiSun size='19px' color='#FFF' />}
+                        activeBoxShadow='0 0 0 2px #2b7a78'
+                    />
+                </div>
+            </Header>
+            <TaskList />
+        </>
+    );
+};
