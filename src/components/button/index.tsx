@@ -1,5 +1,8 @@
+import { lighten } from 'polished';
 import React from 'react';
 import { IoMdAddCircle } from 'react-icons/io';
+import styled from 'styled-components';
+
 import { IconType } from './iconType';
 
 interface IProps {
@@ -8,7 +11,7 @@ interface IProps {
     className?: string;
 }
 
-export const Button: React.FunctionComponent<IProps> = ({ iconType, onClick, className }) => {
+const ButtonRaw: React.FunctionComponent<IProps> = ({ iconType, onClick, className }) => {
     const renderIcon = (): JSX.Element | undefined => {
         switch (iconType) {
             case IconType.Add:
@@ -20,3 +23,21 @@ export const Button: React.FunctionComponent<IProps> = ({ iconType, onClick, cla
 
     return <button className={className}>{renderIcon()}</button>;
 };
+
+export const Button = styled(ButtonRaw)`
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    color: ${props => props.theme.tertiaryColor};
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+
+    &.disabled {
+        color: ${props => props.theme.disabledColor};
+    }
+
+    &:hover:not(.disabled) {
+        cursor: pointer;
+        color: ${props => lighten(0.1, props.theme.tertiaryColor)};
+    }
+`;

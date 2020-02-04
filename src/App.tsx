@@ -1,25 +1,30 @@
-import './styles/app.scss';
-
 import React, { useState } from 'react';
 import { FiMoon, FiSun } from 'react-icons/fi';
-import Switch from 'react-switch';
+import { DefaultTheme, ThemeProvider } from 'styled-components';
 
-import { Header } from './features/header';
+import { H1 } from './components/headings';
+import { Header } from './components/layout/header';
+import { SwitchButton } from './components/switchButton';
 import { TaskList } from './features/taskList';
+import { GlobalStyle } from './styles/globalStyles';
+import { DarkTheme, LightTheme } from './styles/theme';
 
 export const App: React.FunctionComponent = () => {
     const [checked, setChecked] = useState(true);
+    const [theme, setTheme] = useState<DefaultTheme>(LightTheme);
 
     const handleChange = (isChecked: boolean) => {
+        isChecked ? setTheme(LightTheme) : setTheme(DarkTheme);
         setChecked(isChecked);
     };
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
+            <GlobalStyle />
             <Header>
-                <h1>My Tasks</h1>
+                <H1>My Tasks</H1>
                 <div>
-                    <Switch
+                    <SwitchButton
                         onChange={handleChange}
                         checked={checked}
                         offColor={'#333'}
@@ -32,6 +37,6 @@ export const App: React.FunctionComponent = () => {
                 </div>
             </Header>
             <TaskList />
-        </>
+        </ThemeProvider>
     );
 };

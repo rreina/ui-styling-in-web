@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import { ActionPanel } from '../../components/actionPanel';
 import { Button } from '../../components/button';
-import { List } from '../../components/list';
 import { IconType } from '../../components/button/iconType';
+import { H4 } from '../../components/headings';
+import { Input } from '../../components/input';
+import { Article } from '../../components/layout/article';
+import { Section } from '../../components/layout/section';
+import { List } from '../../components/list';
 
 export const TaskList: React.FunctionComponent = () => {
     const [tasks, setTasks] = useState<string[]>([]);
     const [inputValue, setInputValue] = useState<string>('');
-    const inputRef = useRef<HTMLInputElement>(null);
-    useEffect(() => {
-        (inputRef.current as HTMLInputElement).focus();
-    }, []);
 
     const addTask = () => {
         if (inputValue) {
@@ -31,28 +31,26 @@ export const TaskList: React.FunctionComponent = () => {
     };
 
     const renderTasks = (): JSX.Element => {
-        return tasks.length > 0 ? <List items={tasks} /> : <h4>There are no tasks.</h4>;
+        return tasks.length > 0 ? <List items={tasks}></List> : <H4>There are no tasks.</H4>;
     };
 
     return (
         <>
-            <section>
+            <Section>
                 <ActionPanel>
                     <Button
                         iconType={IconType.Add}
                         className={inputValue ? '' : 'disabled'}
                         onClick={addTask}
                     />
-                    <input
-                        ref={inputRef}
-                        type='text'
+                    <Input
                         value={inputValue}
                         onChange={handleChangeInputValue}
                         onKeyDown={handleKeyDown}
                     />
                 </ActionPanel>
-                <article>{renderTasks()}</article>
-            </section>
+                <Article>{renderTasks()}</Article>
+            </Section>
         </>
     );
 };
