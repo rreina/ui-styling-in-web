@@ -10,5 +10,6 @@ declare module 'styled-components' {
         tertiaryColor: string;
         textColor: string;
         secondaryTextColor: string;
+        successColor: string;
     }
 }

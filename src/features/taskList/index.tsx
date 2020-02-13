@@ -8,14 +8,15 @@ import { Input } from '../../components/input';
 import { Article } from '../../components/layout/article';
 import { Section } from '../../components/layout/section';
 import { List } from '../../components/list';
+import { ITask } from '../../components/list/task.interface';
 
 export const TaskList: React.FunctionComponent = () => {
-    const [tasks, setTasks] = useState<string[]>([]);
+    const [tasks, setTasks] = useState<ITask[]>([]);
     const [inputValue, setInputValue] = useState<string>('');
 
     const addTask = () => {
         if (inputValue) {
-            setTasks([...tasks, inputValue]);
+            setTasks([...tasks, { name: inputValue, isCompleted: false }]);
         }
         setInputValue('');
     };
@@ -40,13 +41,14 @@ export const TaskList: React.FunctionComponent = () => {
                 <ActionPanel>
                     <Button
                         iconType={IconType.Add}
-                        className={inputValue ? '' : 'disabled'}
+                        shouldDisable={inputValue ? false : true}
                         onClick={addTask}
                     />
                     <Input
                         value={inputValue}
                         onChange={handleChangeInputValue}
                         onKeyDown={handleKeyDown}
+                        shouldFocus={true}
                     />
                 </ActionPanel>
                 <Article>{renderTasks()}</Article>
