@@ -3,6 +3,7 @@ Example of React SPA with:
 
 1. SASS (in SCSS format) stylesheets
 2. Styled-components and theme support
+3. Storybook as UI development environment and components catalogue
 ```
 
 To run the Demo:
