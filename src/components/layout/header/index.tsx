@@ -11,7 +11,7 @@ const HeaderRaw: React.FunctionComponent<IProps> = ({ children, className }) => 
 };
 
 export const headerHeight = 50;
-const basePadding = '10%';
+const basePadding = '20%';
 export const Header = styled(HeaderRaw)`
     display: flex;
     flex-direction: row;

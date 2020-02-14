@@ -16,7 +16,7 @@ export const TaskList: React.FunctionComponent = () => {
 
     const addTask = () => {
         if (inputValue) {
-            setTasks([...tasks, { name: inputValue, isCompleted: false }]);
+            setTasks([{ name: inputValue, isCompleted: false }, ...tasks]);
         }
         setInputValue('');
     };
@@ -32,7 +32,22 @@ export const TaskList: React.FunctionComponent = () => {
     };
 
     const renderTasks = (): JSX.Element => {
-        return tasks.length > 0 ? <List items={tasks}></List> : <H4>There are no tasks.</H4>;
+        return tasks.length > 0 ? (
+            <List items={tasks} onCompleteTask={reorderTasks}></List>
+        ) : (
+            <H4>There are no tasks.</H4>
+        );
+    };
+
+    const reorderTasks = () => {
+        const tasksCopy = tasks.slice(0);
+        tasksCopy.push(
+            tasksCopy.splice(
+                tasksCopy.findIndex(task => task.isCompleted),
+                1
+            )[0]
+        );
+        setTasks(tasksCopy);
     };
 
     return (

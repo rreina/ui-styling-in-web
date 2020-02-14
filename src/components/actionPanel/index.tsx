@@ -10,6 +10,7 @@ const ActionPanelRaw: React.FunctionComponent<IProps> = ({ className, children }
     return <div className={className}>{children}</div>;
 };
 
+const basePadding = '20%';
 export const ActionPanel = styled(ActionPanelRaw)`
     display: flex;
     position: relative;
@@ -18,11 +19,9 @@ export const ActionPanel = styled(ActionPanelRaw)`
     background-color: ${props => props.theme.secondaryColor};
     border-bottom: 1px solid ${props => props.theme.disabledColor};
 
-    $padding: 10%;
-
-    padding-left: 10%;
-    padding-right: 10%;
-    width: calc(80%);
+    padding-left: ${basePadding};
+    padding-right: ${basePadding};
+    width: calc(100% - ${basePadding} * 2);
 
     > *:not(:last-child) {
         margin-right: ${props => props.theme.spacingMultiplier}px;
